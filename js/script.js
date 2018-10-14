@@ -8,7 +8,7 @@ function deleteElement(event)
 
 function editElement(event)
 {
-  var reg = /^[\s]{0,2}[a-zа-я]{1,40}[\!\.\?\-\_]?$/gim
+  var reg = /^[\s]{0,2}[a-zа-я]{1,40}[a-zа-я\s]+[\!\.\?\-\_]{0,}$/gim
   var target = event ? event.target : window.event.srcElement,
       textString = target.parentNode.firstChild,
       oldText = textString.textContent;
@@ -42,7 +42,7 @@ function done(event)
 
 function newElement() 
 {     
-    var reg = /^[\s]{0,2}[a-zа-я]{1,40}[\!\.\?\-\_]?$/gim
+    var reg = /^[\s]{0,2}[a-zа-я]{1,40}[a-zа-я\s]+[\!\.\?\-\_]{0,}$/gim
     var list = document.getElementById('list');
 
     var item = document.createElement('div');
@@ -68,7 +68,7 @@ function newElement()
         taskText.className = 'text';
         taskText.setAttribute("onclick", "done()");
     
-    if(reg.test(inputValue) === false || inputValue == '')
+    if(reg.test(inputValue) === false)
 
     {  
       console.log('False: ' + reg.test(inputValue));
@@ -81,7 +81,11 @@ function newElement()
       console.log('Length: ' + reg.test(inputValue));
       alert('Max length of Task - 40 characters!');
       return false;
-    } 
+    } else if (inputValue == '')
+    {
+      alert('Task is Empty');
+      return false;
+    }
 
     else 
     {  
@@ -108,17 +112,6 @@ function keyupAdd()
 {
   if (event.keyCode === 13) newElement();
 }
-
-
-
-/*text.addEventListener("keyup", function(event) 
-{
-    
-    event.preventDefault();
-    if (event.keyCode === 13) newElement();
-    
-    
-});*/
 
 var remove = function()
 {
